@@ -136,7 +136,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 5. **Acessar a Aplicação**
    Abra http://localhost:3000 no seu navegador.
 
-## Tecnologias Utilizadas
+## Comandos disponíveis
 
 - **npm run dev:** Inicia o ambiente de desenvolvimento.
 - **npm run build:** Cria uma versão de produção.
@@ -144,3 +144,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 - **npm run test:** Executa os testes unitários.
 - **npm run test:e2e:** Executa os testes end-to-end.
 - **npm run lint:** Analisa o código em busca de problemas.
+
+## Diagramas do sistema
+
+https://excalidraw.com/#json=tk706rdmxROU2MwbchMcX,QycS_ahjs7_WEI04Oa_--g
