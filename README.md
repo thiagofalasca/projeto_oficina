@@ -2,51 +2,56 @@
 
 ## Objetivo
 
-Desenvolver uma aplicação web que auxilie professores na gestão de alunos voluntários em atividades extracurriculares na universidade. O sistema permite que professores cadastrem atividades para o semestre, que serão automaticamente atribuídas aos alunos cadastrados. Além disso, os alunos podem cadastrar e gerenciar oficinas, das quais serão responsáveis. A plataforma visa facilitar o acompanhamento das atividades e gerar relatórios detalhados sobre os alunos cadastrados e as oficinas.
+Desenvolver uma aplicação web que auxilie professores na gestão de alunos voluntários em workshops na universidade. O sistema permite que professores cadastrem workshops e gerenciem os alunos participantes, além de gerar certificados de participação.
 
 ## Funcionalidades
 
 - **Cadastro de Usuários**: Registro de alunos e professores com informações pessoais, especificando seu tipo de usuário.
 - **Autenticação e Login**: Acesso seguro ao sistema.
-- **Cadastro de Atividades pelos Professores**: Professores inserem atividades para o semestre.
-- **Atribuição Automática de Atividades**: Alunos herdam as atividades cadastradas pelos professores.
-- **Gestão de Oficinas pelos Alunos**: Alunos podem criar e gerenciar oficinas, sendo responsáveis por elas.
-- **Listagem de Oficinas**: Visualização de datas e assuntos das oficinas.
-- **Geração de Relatórios**: Relatórios sobre usuários, atividades e oficinas.
+- **Gestão de Workshops**: Professores podem cadastrar e gerenciar workshops.
+- **Gestão de Voluntários**: Professores podem adicionar alunos aos workshops.
+- **Certificados**: Geração e assinatura de certificados pelos professores.
+- **Consulta de Certificados**: Alunos podem buscar seus certificados de participação.
+- **Geração de Relatórios**: Professores podem gerar relatórios sobre alunos e workshops.
+- **Listagem de Workshops**: Alunos podem visualizar a lista de workshops em que participam e professores podem visualizar todos os workshops.
 
 ## Requisitos Funcionais
 
 1. **Cadastro de Usuários**
 
-   - Permitir que alunos e professores se cadastrem no sistema, especificando sua função (aluno ou professor) durante o registro.
+   - Permitir que alunos e professores se cadastrem no sistema, especificando sua função durante o registro.
    - Armazenar dados como endereço, ra, número de documento (RG com órgão emissor, CPF, etc.), email, telefone, local de nascimento, curso e período da faculdade.
 
 2. **Autenticação e Login**
 
    - Implementar um sistema de autenticação para alunos e professores, garantindo acesso seguro ao sistema.
 
-3. **Cadastro de Atividades pelos Professores**
+3. **Cadastro e Gestão de Workshops**
 
-   - Professores podem cadastrar atividades para o semestre da universidade.
+   - Professores podem cadastrar novos workshops no sistema.
+   - Professores podem gerenciar informações e status dos workshops.
 
-4. **Atribuição Automática de Atividades aos Alunos**
+4. **Gestão de Voluntários**
 
-   - Todos os alunos que se cadastrarem herdam automaticamente todas as atividades cadastradas pelos professores.
+   - Professores podem adicionar alunos como voluntários em workshops específicos.
+   - Professores podem gerenciar a lista de participantes de cada workshop.
 
-5. **Gestão de Oficinas pelos Alunos**
+5. **Certificados**
 
-   - Alunos podem cadastrar oficinas e são responsáveis por elas.
+   - Professores podem gerar certificados de participação para os alunos.
+   - Professores podem assinar digitalmente os certificados.
+   - Alunos podem buscar e visualizar seus certificados de participação.
 
-6. **Listagem de Oficinas**
+6. **Geração de Relatórios**
 
-   - Exibir listas de datas das oficinas com seus respectivos assuntos.
+   - Professores podem gerar relatórios sobre:
+     - Participação dos alunos nos workshops
+     - Histórico de workshops realizados
+     - Certificados emitidos
 
-7. **Geração de Relatórios**
-
-   - Gerar relatórios sobre usuários, atividades e oficinas.
-
-8. **Outros conforme necessário**
-   - Funcionalidades adicionais que possam surgir durante o desenvolvimento.
+7. **Listagem de Workshops**
+   - Alunos podem visualizar a lista de workshops em que participam.
+   - Professores podem visualizar todos os workshops.
 
 ## Arquitetura em Alto Nível
 
@@ -58,6 +63,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 - **Backend**
 
   - API construída com **Next.js API Routes** para lidar com a lógica de negócios e comunicação com o banco de dados.
+  - Utilização do **Prisma ORM** para interagir com o banco de dados **Supabase**.
 
 - **Banco de Dados**
 
@@ -65,11 +71,11 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 
 - **Autenticação**
 
-  - Implementação de autenticação segura utilizando o sistema de autenticação do **Supabase** ou **NextAuth.js** integrado com o Supabase.
+  - Implementação de autenticação segura utilizando **NextAuth.js** integrado com o Supabase.
 
 - **Testes**
 
-  - Estratégia de testes automatizados incluindo testes unitários, de integração e end-to-end.
+  - Estratégia de testes automatizados com testes unitários mockados no backend e testes end-to-end no frontend com.
 
 - **Deploy**
   - Hospedagem na **Vercel** para facilidade de deploy contínuo.
@@ -78,22 +84,15 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 
 - **Testes Unitários**
 
-  - Utilizar o **Jest** e o **Testing Library** para testar componentes individuais do frontend e funções de lógica de negócio no backend.
+  - Utilizar o **Jest** para testar funções de lógica de negócio no backend com mocks.
 
-- **Testes de Integração**
+- **Testes End-to-End**
 
-  - Verificar a interação entre diferentes partes do sistema, como a comunicação entre o frontend, backend e o banco de dados Supabase.
-
-- **Testes End-to-End (E2E)**
-
-  - Implementar testes com **Cypress** ou **Playwright** para simular o fluxo completo do usuário no sistema.
+  - Implementar testes com **Cypress** para simular o fluxo completo do usuário no sistema.
 
 - **Integração Contínua (CI)**
 
   - Configurar pipelines de CI/CD com **GitHub Actions** para executar os testes automaticamente em cada push ou pull request.
-
-- **Cobertura de Testes**
-  - Monitorar a cobertura dos testes para garantir a qualidade e reduzir bugs.
 
 ## Tecnologias Utilizadas
 
@@ -101,11 +100,11 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 - **TypeScript**: Superset do JavaScript para tipagem estática.
 - **Tailwind CSS**: Framework de CSS utilitário para estilização rápida.
 - **Shadcn UI**: Biblioteca de componentes UI pré-construídos.
-- **Supabase**: Plataforma de backend que fornece banco de dados PostgreSQL, autenticação e funcionalidades em tempo real.
+- **Supabase**: Plataforma de backend que fornece banco de dados PostgreSQL.
+- **Prisma ORM**: ORM para interagir com o banco de dados.
 - **NextAuth.js**: Biblioteca para autenticação e autorização.
-- **Jest**: Framework de testes unitários.
-- **Testing Library**: Conjunto de utilitários para testar componentes React.
-- **Cypress** ou **Playwright**: Ferramentas para testes end-to-end.
+- **Jest**: Framework de testes unitários com suporte a mocks.
+- **Cypress**: Ferramenta para testes end-to-end.
 - **Vercel**: Plataforma de hospedagem e deploy contínuo.
 - **Ferramentas Adicionais**: ESLint, Prettier, Git e GitHub.
 
@@ -144,6 +143,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 - **npm run test:** Executa os testes unitários.
 - **npm run test:e2e:** Executa os testes end-to-end.
 - **npm run lint:** Analisa o código em busca de problemas.
+- **npm run format:** Formata o código usando Prettier.
 
 ## Diagramas do sistema
 
