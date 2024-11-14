@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "nome": "João Silva",
+    "tipo": "aluno",
+    "endereco": "Rua A, 123",
+    "ra": "123456",
+    "documento": {
+      "rg": "123456789",
+      "orgao_emissor": "SSP",
+      "cpf": "123.456.789-00"
+    },
+    "email": "joao.silva@example.com",
+    "telefone": "(11) 98765-4321",
+    "local_nascimento": "São Paulo, SP",
+    "curso": "Engenharia de Software",
+    "periodo": "Noturno"
+  },
+  {
+    "id": 2,
+    "nome": "Maria Oliveira",
+    "tipo": "professor",
+    "endereco": "Rua B, 456",
+    "ra": "654321",
+    "documento": {
+      "rg": "987654321",
+      "orgao_emissor": "SSP",
+      "cpf": "987.654.321-00"
+    },
+    "email": "maria.oliveira@example.com",
+    "telefone": "(21) 98765-4321",
+    "local_nascimento": "Rio de Janeiro, RJ",
+    "curso": "Ciência da Computação",
+    "periodo": "Integral"
+  }
+]
