@@ -63,7 +63,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 - **Backend**
 
   - API construída com **Next.js API Routes** para lidar com a lógica de negócios e comunicação com o banco de dados.
-  - Utilização do **Prisma ORM** para interagir com o banco de dados **Supabase**.
+  - Utilização do **Drizzle ORM** para interagir com o banco de dados **Supabase**.
 
 - **Banco de Dados**
 
@@ -101,7 +101,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 - **Tailwind CSS**: Framework de CSS utilitário para estilização rápida.
 - **Shadcn UI**: Biblioteca de componentes UI pré-construídos.
 - **Supabase**: Plataforma de backend que fornece banco de dados PostgreSQL.
-- **Prisma ORM**: ORM para interagir com o banco de dados.
+- **Drizzle ORM**: ORM para interagir com o banco de dados.
 - **NextAuth.js**: Biblioteca para autenticação e autorização.
 - **Jest**: Framework de testes unitários com suporte a mocks.
 - **Cypress**: Ferramenta para testes end-to-end.
