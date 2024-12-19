@@ -11,6 +11,16 @@ export function formatDateToISO(date: string): string {
   return `${year}-${month}-${day}`;
 }
 
+export function isValidDate(dateString: string): boolean {
+  const [day, month, year] = dateString.split('/').map(Number);
+  const date = new Date(year, month - 1, day);
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  )
+}
+
 export const getStateOptions = () => {
   return states.map((state) => ({
     value: state,

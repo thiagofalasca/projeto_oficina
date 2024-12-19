@@ -41,7 +41,7 @@ export const cpfMask = (value: string) => {
   return formattedValue;
 };
 
-export const birthDateMask = (value: string) => {
+export const dateMask = (value: string) => {
   const cleanedValue = value.replace(/\D/g, '');
 
   if (!cleanedValue) return '';

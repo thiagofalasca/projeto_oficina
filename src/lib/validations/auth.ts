@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { courses, states } from '@/lib/constants';
+import { isValidDate } from '../utils';
 
 const passwordSchema = z
   .string()
@@ -86,15 +87,7 @@ export const signUpSchema = z
       .string()
       .min(1, 'Data de nascimento é obrigatória')
       .regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Campo deve estar no formato DD/MM/YYYY')
-      .refine((dateString) => {
-        const [day, month, year] = dateString.split('/').map(Number);
-        const date = new Date(year, month - 1, day);
-        return (
-          date.getFullYear() === year &&
-          date.getMonth() === month - 1 &&
-          date.getDate() === day
-        );
-      }, 'Data de nascimento inválida'),
+      .refine(isValidDate , 'Data de nascimento inválida'),
     postalCode: z
       .string()
       .min(1, 'CEP é obrigatório')

@@ -17,7 +17,7 @@ import {
   phoneNumberMask,
   nameMask,
   cpfMask,
-  birthDateMask,
+  dateMask,
   postalCodeMask,
   raMask,
   emailMask,
@@ -59,7 +59,7 @@ const CustomInput = <TFieldValues extends FieldValues>({
         newValue = cpfMask(value);
         break;
       case 'birthDate':
-        newValue = birthDateMask(value);
+        newValue = dateMask(value);
         break;
       case 'postalCode':
         newValue = postalCodeMask(value);
