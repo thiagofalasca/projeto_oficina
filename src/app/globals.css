@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 @layer base {
@@ -62,11 +64,24 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer utilities {
+  .auth-card {
+    @apply m-5 w-full space-y-8 rounded-xl bg-white p-10 shadow-lg;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .auth-header {
+    @apply flex flex-col gap-4 text-center;
+  }
+
+  .auth-link {
+    @apply cursor-pointer font-medium hover:underline;
+  }
+
+  .auth-icon {
+    @apply mx-auto h-14 w-14;
+  }
+
+  .form-btn {
+    @apply w-full rounded-lg bg-blue-600 font-semibold text-white hover:bg-blue-700;
   }
 }
