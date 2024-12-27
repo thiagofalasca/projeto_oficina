@@ -2,6 +2,11 @@ import React from 'react';
 import SignUpForm from '@/components/auth/SignUpForm';
 import AuthHeader from '@/components/auth/AuthHeader';
 import AuthFooter from '@/components/auth/AuthFooter';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Criar Conta',
+};
 
 const SignUpPage = () => {
   return (

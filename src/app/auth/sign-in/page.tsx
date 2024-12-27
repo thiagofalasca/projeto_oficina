@@ -2,6 +2,11 @@ import React, { Suspense } from 'react';
 import SignInForm from '@/components/auth/SignInForm';
 import AuthHeader from '@/components/auth/AuthHeader';
 import AuthFooter from '@/components/auth/AuthFooter';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Entrar',
+};
 
 const SignInPage = () => {
   return (

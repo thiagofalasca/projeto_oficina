@@ -1,3 +1,9 @@
+import {
+  DocumentCheckIcon,
+  MagnifyingGlassIcon,
+  WrenchScrewdriverIcon,
+} from '@heroicons/react/24/outline';
+
 // prettier-ignore
 export const states = [
   'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
@@ -34,3 +40,17 @@ export const courses = [
     totalPeriods: 6,
   },
 ] as const;
+
+export const sidebarLinks = [
+  {
+    label: 'Workshops',
+    route: '/workshops',
+    icon: WrenchScrewdriverIcon,
+  },
+  {
+    label: 'Buscar Workshops',
+    route: '/find-workshops',
+    icon: MagnifyingGlassIcon,
+  },
+  { label: 'Certificados', route: '/certificates', icon: DocumentCheckIcon },
+];

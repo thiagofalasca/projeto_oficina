@@ -32,6 +32,7 @@ const SignInForm = () => {
     startTransition(async () => {
       const result = await signInAction(data, callbackUrl);
       setMessageState(result);
+
       if (result.validationErrors) {
         Object.entries(result.validationErrors).forEach(([field, messages]) => {
           setError(field as keyof signInInput, { message: messages[0] });

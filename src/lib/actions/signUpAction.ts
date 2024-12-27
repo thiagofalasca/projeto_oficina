@@ -4,7 +4,7 @@ import { signUpSchema, signUpInput } from '../validations/auth';
 import { createUser, validateUser } from './userActions';
 import { generateVerificationToken } from '@/lib/actions/tokenAction';
 import { sendVerificationEmail } from '../mail';
-import { revalidatePath } from 'next/cache';
+import { expirePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const signUpAction = async (
@@ -48,6 +48,6 @@ export const signUpAction = async (
     return { success: false, message: 'Erro ao enviar email de verificação' };
   }
 
-  revalidatePath('/auth/sign-up/mail-sent');
+  expirePath('/auth/sign-up/mail-sent');
   redirect('/auth/sign-up/mail-sent');
 };

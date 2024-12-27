@@ -2,6 +2,11 @@ import React from 'react';
 import AuthHeader from '@/components/auth/AuthHeader';
 import AuthFooter from '@/components/auth/AuthFooter';
 import ResetForm from '@/components/auth/ResetForm';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Alterar Senha',
+};
 
 const ResetPage = () => {
   return (
