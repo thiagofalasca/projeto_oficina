@@ -7,6 +7,7 @@ import CustomInput from "../CustomInput"
 import { useState, useTransition } from "react"
 import FormButton from "../FormButton"
 import FormMessage from "../FormMessage"
+import { useRouter } from "next/router"
 
 const WorkshopForm = () => {
     const [messageState, setMessageState] = useState<MessageState>({})
@@ -35,7 +36,11 @@ const WorkshopForm = () => {
                 });
             }
         })*/
-       console.log(data)
+    console.log(data)
+    const router = useRouter()
+    router.push("/workshopListing/workshops")
+   
+
     }
 
     return (
