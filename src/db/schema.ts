@@ -11,6 +11,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { relations, sql, SQL } from 'drizzle-orm';
 import type { AdapterAccountType } from 'next-auth/adapters';
+import { enrollmentStatus, ROLES, workshopStatus } from '@/lib/constants';
 
 export function lower(email: AnyPgColumn): SQL {
   return sql`lower(${email})`;
@@ -25,18 +26,13 @@ const updatedAt = timestamp('updated_at')
   .defaultNow()
   .$onUpdate(() => new Date());
 
-export const role_enum = pgEnum('role', ['user', 'admin']);
+export const role_enum = pgEnum('role', ROLES);
 
-export const workshop_status_enum = pgEnum('workshop_status', [
-  'Rascunho',
-  'Ativo',
-  'Completo',
-  'Cancelado',
-]);
+export const workshop_status_enum = pgEnum('workshop_status', workshopStatus);
 
 export const workshop_enrollments_status_enum = pgEnum(
   'workshop_enrollments_status',
-  ['Matriculado', 'Finalizado', 'Cancelado']
+  enrollmentStatus
 );
 
 export const users = pgTable(
@@ -44,7 +40,7 @@ export const users = pgTable(
   {
     id,
     name: text('name').notNull(),
-    email: text('email').unique(),
+    email: text('email').unique().notNull(),
     emailVerified: timestamp('emailVerified', { mode: 'date' }),
     image: text('image'),
     hashedPassword: text('password').notNull(),
@@ -160,32 +156,35 @@ export const workshops = pgTable('workshops', {
       onDelete: 'restrict',
       onUpdate: 'cascade',
     }),
-  startDate: timestamp('start_date').notNull(),
-  endDate: timestamp('end_date').notNull(),
+  key: text('key'),
+  startDate: date('start_date').notNull(),
+  endDate: date('end_date').notNull(),
   status: workshop_status_enum('status').notNull(),
   createdAt,
   updatedAt,
 });
 
-export const workshopEnrollments = pgTable('workshop_enrollments', {
-  id,
-  workshopId: text('workshop_id')
-    .notNull()
-    .unique()
-    .references(() => workshops.id, {
-      onDelete: 'cascade',
-      onUpdate: 'cascade',
-    }),
-  studentId: text('student_id')
-    .notNull()
-    .unique()
-    .references(() => students.id, {
-      onDelete: 'cascade',
-      onUpdate: 'cascade',
-    }),
-  enrollmentDate: timestamp('enrollment_date').notNull().defaultNow(),
-  status: workshop_enrollments_status_enum('status').notNull(),
-});
+export const workshopEnrollments = pgTable(
+  'workshop_enrollments',
+  {
+    id,
+    workshopId: text('workshop_id')
+      .notNull()
+      .references(() => workshops.id, { onDelete: 'cascade' }),
+    studentId: text('student_id')
+      .notNull()
+      .references(() => students.id, { onDelete: 'cascade' }),
+    status: workshop_enrollments_status_enum('status').notNull(),
+    createdAt,
+    updatedAt,
+  },
+  (table) => [
+    uniqueIndex('workshop_student_unique').on(
+      table.workshopId,
+      table.studentId
+    ),
+  ]
+);
 
 export const certificates = pgTable('certificates', {
   id,

@@ -22,6 +22,7 @@ import {
   raMask,
   emailMask,
 } from '@/lib/masks';
+import { Textarea } from './ui/textarea';
 
 interface CustomInputProps<TFieldValues extends FieldValues = FieldValues> {
   control: Control<TFieldValues>;
@@ -58,7 +59,7 @@ const CustomInput = <TFieldValues extends FieldValues>({
       case 'cpf':
         newValue = cpfMask(value);
         break;
-      case 'birthDate':
+      case 'date':
         newValue = dateMask(value);
         break;
       case 'postalCode':
@@ -87,14 +88,23 @@ const CustomInput = <TFieldValues extends FieldValues>({
             {label}
           </FormLabel>
           <FormControl onChange={applyMask}>
-            <Input
-              id={name}
-              type={type}
-              data-mask={maskName}
-              placeholder={placeholder}
-              {...field}
-              className="rounded-lg border border-gray-300"
-            />
+            {type === 'textarea' ? (
+              <Textarea
+                id={name}
+                placeholder={placeholder}
+                className="rounded-lg border border-gray-300"
+                {...field}
+              />
+            ) : (
+              <Input
+                id={name}
+                type={type}
+                data-mask={maskName}
+                placeholder={placeholder}
+                className="rounded-lg border border-gray-300"
+                {...field}
+              />
+            )}
           </FormControl>
           <FormMessage />
           {description && description}
