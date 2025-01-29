@@ -9,10 +9,10 @@ import CustomInput from '@/components/CustomInput';
 import FormMessage from '@/components/FormMessage';
 import FormButton from '@/components/FormButton';
 import { useSearchParams } from 'next/navigation';
-import { newPasswordAction } from '@/lib/actions/newPasswordAction';
-import { CheckCircle } from 'lucide-react';
 import AuthFooter from '@/components/auth/AuthFooter';
-import AuthHeader from '@/components/auth/AuthHeader';
+import HeaderBox from '@/components/HeaderBox';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { newPasswordAction } from '@/lib/actions/auth/newPasswordAction';
 
 const NewPassword = () => {
   const searchParams = useSearchParams();
@@ -50,10 +50,11 @@ const NewPassword = () => {
 
   return (
     <section className="auth-card max-w-md">
-      {isSuccess && <CheckCircle className="auth-icon text-green-500" />}
-      <AuthHeader
-        titleSize="md"
-        variant={isSuccess ? 'success' : 'normal'}
+      {isSuccess && (
+        <CheckCircleIcon className="auth-icon mb-[-20px] text-emerald-500" />
+      )}
+      <HeaderBox
+        className={isSuccess ? 'text-emerald-500' : ''}
         title={isSuccess ? 'Senha Alterada' : 'Alterar Senha'}
         subText={
           isSuccess

@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthHeader from '@/components/auth/AuthHeader';
+import HeaderBox from '@/components/HeaderBox';
 import AuthFooter from '@/components/auth/AuthFooter';
 import ResetForm from '@/components/auth/ResetForm';
 import { Metadata } from 'next';
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 const ResetPage = () => {
   return (
     <section className="auth-card max-w-md">
-      <AuthHeader
-        titleSize="md"
+      <HeaderBox
+        className="text-3xl"
         title="Recuperação de Senha"
         subText="Digite seu email para alterar sua senha"
       />

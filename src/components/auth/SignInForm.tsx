@@ -1,7 +1,7 @@
 'use client';
 
 import { signInSchema, signInInput } from '@/lib/validations/auth';
-import React, { useState, useTransition } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '../ui/form';
@@ -9,37 +9,17 @@ import CustomInput from '@/components/CustomInput';
 import FormMessage from '@/components/FormMessage';
 import FormButton from '@/components/FormButton';
 import Link from 'next/link';
-import { signInAction } from '@/lib/actions/signInAction';
-import { useSearchParams } from 'next/navigation';
+import { signInAction } from '@/lib/actions/auth/signInAction';
+import { useFormSubmit } from '@/hooks/useFormSubmit';
 
 const SignInForm = () => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl');
-  const [messageState, setMessageState] = useState<MessageState>({});
-  const [isPending, startTransition] = useTransition();
-
   const form = useForm<signInInput>({
     resolver: zodResolver(signInSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues: { email: '', password: '' },
   });
 
-  const { handleSubmit, control, setError } = form;
-
-  const onSubmit = async (data: signInInput) => {
-    startTransition(async () => {
-      const result = await signInAction(data, callbackUrl);
-      setMessageState(result);
-
-      if (result.validationErrors) {
-        Object.entries(result.validationErrors).forEach(([field, messages]) => {
-          setError(field as keyof signInInput, { message: messages[0] });
-        });
-      }
-    });
-  };
+  const { isPending, messageState, control, handleSubmit, onSubmit } =
+    useFormSubmit(form, signInAction);
 
   return (
     <Form {...form}>
@@ -60,7 +40,7 @@ const SignInForm = () => {
           description={
             <div className="mt-1 flex gap-1 text-sm">
               <p className="text-gray-600">Esqueceu sua senha?</p>
-              <Link href={'/auth/reset'} className="auth-link text-blue-700">
+              <Link href={'/auth/reset'} className="auth-link text-blue-600">
                 Recuperar senha
               </Link>
             </div>

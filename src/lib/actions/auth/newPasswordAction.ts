@@ -1,20 +1,26 @@
 'use server';
 
 import bcrypt from 'bcryptjs';
-import { newPasswordInput, newPasswordSchema } from '../validations/auth';
-import { getUserByEmail } from './userActions';
 import { db } from '@/db';
 import { PasswordResetTokens, users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import { getPasswordResetTokenByToken } from './tokenAction';
+import { newPasswordInput, newPasswordSchema } from '@/lib/validations/auth';
+import { getPasswordResetTokenByToken } from '../tokenAction';
+import { getUserByEmail } from '../userActions';
+
+interface NewPasswordProps {
+  passwordData: {
+    password: string;
+    confirmPassword: string;
+  };
+  token?: string | null;
+}
 
 export const newPasswordAction = async ({
   passwordData,
   token,
-}: NewPasswordProps): Promise<AuthState<newPasswordInput>> => {
-  if (!token) {
-    return { success: false, message: 'Faltando token' };
-  }
+}: NewPasswordProps): Promise<ResultState<newPasswordInput>> => {
+  if (!token) return { success: false, message: 'Faltando token' };
 
   const validatedFields = newPasswordSchema.safeParse(passwordData);
   if (!validatedFields.success) {

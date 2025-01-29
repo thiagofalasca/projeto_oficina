@@ -1,11 +1,10 @@
 'use client';
 
 import { signUpSchema, signUpInput } from '@/lib/validations/auth';
-import React, { useState, useTransition } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { courses } from '@/lib/constants';
-import { signUpAction } from '@/lib/actions/signUpAction';
 import { Form } from '../ui/form';
 import CustomInput from '@/components/CustomInput';
 import CustomSelect from '@/components/CustomSelect';
@@ -16,11 +15,10 @@ import {
   getPeriodOptions,
   getStateOptions,
 } from '@/lib/utils';
+import { signUpAction } from '@/lib/actions/auth/signUpAction';
+import { useFormSubmit } from '@/hooks/useFormSubmit';
 
 const SignUpForm = () => {
-  const [messageState, setMessageState] = useState<MessageState>({});
-  const [isPending, startTransition] = useTransition();
-
   const form = useForm<signUpInput>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -40,26 +38,14 @@ const SignUpForm = () => {
     },
   });
 
-  const { handleSubmit, control, setError } = form;
+  const { isPending, messageState, control, handleSubmit, onSubmit } =
+    useFormSubmit(form, signUpAction);
 
   const selectedCourseId = form.watch('course');
   const selectedCourse = courses.find((c) => c.id === selectedCourseId);
   const stateOptions = getStateOptions();
   const courseOptions = getCourseOptions();
   const periodOptions = getPeriodOptions(selectedCourse || null);
-
-  const onSubmit = async (data: signUpInput) => {
-    startTransition(async () => {
-      const result = await signUpAction(data);
-      setMessageState(result);
-
-      if (result.validationErrors) {
-        Object.entries(result.validationErrors).forEach(([field, messages]) => {
-          setError(field as keyof signUpInput, { message: messages[0] });
-        });
-      }
-    });
-  };
 
   return (
     <Form {...form}>
@@ -91,7 +77,7 @@ const SignUpForm = () => {
             name="birthDate"
             label="Data de Nascimento"
             placeholder="Digite sua data de nascimento"
-            maskName="birthDate"
+            maskName="date"
           />
         </div>
         <div className="flex gap-4">

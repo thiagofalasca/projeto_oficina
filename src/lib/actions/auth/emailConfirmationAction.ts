@@ -1,10 +1,10 @@
 'use server';
 
 import { db } from '@/db';
-import { getUserByEmail } from './userActions';
+import { getUserByEmail } from '../userActions';
 import { users, verificationTokens } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import { getVerificationTokenByToken } from './tokenAction';
+import { getVerificationTokenByToken } from '../tokenAction';
 
 export const emailConfirmation = async (
   token: string

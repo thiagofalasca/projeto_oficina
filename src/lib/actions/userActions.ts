@@ -7,7 +7,7 @@ import { eq } from 'drizzle-orm';
 import { formatDateToISO } from '../utils';
 import { signUpInput } from '../validations/auth';
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email: string): Promise<User | null> => {
   try {
     const user = await db.query.users.findFirst({
       where: eq(lower(users.email), email.toLowerCase()),
@@ -29,11 +29,11 @@ export const getUserById = async (id: string): Promise<User | null> => {
   }
 };
 
-export async function validateUser(
+export const validateUser = async (
   email: string,
   cpf: string,
   ra: string
-): Promise<MessageState> {
+): Promise<MessageState> => {
   try {
     const existingEmail = await getUserByEmail(email);
     if (existingEmail) {
@@ -59,7 +59,7 @@ export async function validateUser(
     console.error('Erro ao validar usuário', error);
     return { success: false, message: 'Erro ao validar usuário' };
   }
-}
+};
 
 export const createUser = async (
   userData: signUpInput

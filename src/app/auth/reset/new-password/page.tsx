@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const NewPasswordPage = () => {
   return (
     <Suspense>
-      <NewPassword />
+      <NewPassword />;
     </Suspense>
   );
 };

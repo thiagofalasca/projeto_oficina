@@ -1,15 +1,15 @@
 'use server';
 
-import { signUpSchema, signUpInput } from '../validations/auth';
-import { createUser, validateUser } from './userActions';
-import { generateVerificationToken } from '@/lib/actions/tokenAction';
-import { sendVerificationEmail } from '../mail';
+import { signUpInput, signUpSchema } from '@/lib/validations/auth';
 import { expirePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { createUser, validateUser } from '../userActions';
+import { generateVerificationToken } from '../tokenAction';
+import { sendVerificationEmail } from '@/lib/mail';
 
 export const signUpAction = async (
   data: signUpInput
-): Promise<AuthState<signUpInput>> => {
+): Promise<ResultState<signUpInput>> => {
   const validatedFields = signUpSchema.safeParse(data);
 
   if (!validatedFields.success) {

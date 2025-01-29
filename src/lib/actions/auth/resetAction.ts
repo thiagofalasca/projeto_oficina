@@ -1,15 +1,15 @@
 'use server';
 
-import { sendPasswordResetEmail } from '../mail';
+import { sendPasswordResetEmail } from '../../mail';
 import { generatePasswordResetToken } from '@/lib/actions/tokenAction';
-import { resetInput, resetSchema } from '../validations/auth';
-import { getUserByEmail } from './userActions';
+import { resetInput, resetSchema } from '../../validations/auth';
+import { getUserByEmail } from '../userActions';
 import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
+import { expirePath } from 'next/cache';
 
 export const resetAction = async (
   data: resetInput
-): Promise<AuthState<resetInput>> => {
+): Promise<ResultState<resetInput>> => {
   const validatedFields = resetSchema.safeParse(data);
 
   if (!validatedFields.success) {
@@ -41,6 +41,6 @@ export const resetAction = async (
     };
   }
 
-  revalidatePath('/auth/reset/mail-sent');
+  expirePath('/auth/reset/mail-sent');
   redirect('/auth/reset/mail-sent');
 };

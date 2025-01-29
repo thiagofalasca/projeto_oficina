@@ -1,17 +1,16 @@
 'use server';
 
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
-import { signInSchema, signInInput } from '../validations/auth';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
-import { getUserByEmail } from './userActions';
 import { generateVerificationToken } from '@/lib/actions/tokenAction';
-import { sendVerificationEmail } from '../mail';
+import { signInInput, signInSchema } from '@/lib/validations/auth';
+import { getUserByEmail } from '../userActions';
+import { sendVerificationEmail } from '@/lib/mail';
 
 export const signInAction = async (
-  data: signInInput,
-  callbackUrl?: string | null
-): Promise<AuthState<signInInput>> => {
+  data: signInInput
+): Promise<ResultState<signInInput>> => {
   const validatedFields = signInSchema.safeParse(data);
 
   if (!validatedFields.success) {
@@ -44,6 +43,7 @@ export const signInAction = async (
         message: 'Erro ao enviar email de verificação',
       };
     }
+
     return {
       success: true,
       message: 'Email de confirmação de conta enviado!',
@@ -54,12 +54,11 @@ export const signInAction = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
 
     return { success: true };
   } catch (error) {
-    console.error(error);
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
