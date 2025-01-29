@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 import AppLogo from '@/components/AppLogo';
 import MobileNav from '@/components/sidebar/MobileNav';
 import SideNav from '@/components/sidebar/SideNav';
