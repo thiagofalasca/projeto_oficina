@@ -1,4 +1,4 @@
-export const publicRoutes = ['/auth/email-confirmation'];
+export const publicRoutes = ['/auth/email-confirmation', '/api/auth/sign-out'];
 
 export const authRoutes = [
   '/auth/sign-in',
