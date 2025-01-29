@@ -6,18 +6,19 @@ import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { getUserById } from '@/lib/actions/userActions';
 import { accounts, users, verificationTokens } from '@/db/schema';
 import { db } from '@/db';
+import { Role } from './lib/constants';
 
 declare module 'next-auth' {
   interface Session {
     user: {
-      role: 'admin' | 'user';
+      role: Role;
     } & DefaultSession['user'];
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    role?: 'admin' | 'user';
+    role?: Role;
   }
 }
 
