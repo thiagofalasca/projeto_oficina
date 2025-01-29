@@ -10,13 +10,12 @@ interface AuthFooterProps {
 
 const AuthFooter = ({ link, linkText, description }: AuthFooterProps) => {
   return (
-    <footer className="flex justify-center text-sm">
+    <footer className="flex-center text-sm">
       {description && <p className="text-gray-600">{description}</p>}
-
       <Link
         href={link}
         className={cn('auth-link text-gray-600', {
-          'ml-1 text-blue-700': description,
+          'ml-1 text-blue-600': description,
         })}
       >
         {linkText}

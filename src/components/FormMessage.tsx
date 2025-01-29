@@ -7,11 +7,11 @@ import React from 'react';
 const types = {
   success: {
     style: 'bg-emerald-500/15 text-emerald-500',
-    icon: <CheckCircleIcon className="mt-[1px] h-4 w-4" />,
+    icon: <CheckCircleIcon className="mt-[1px] h-4" />,
   },
   error: {
     style: 'bg-destructive/15 text-destructive',
-    icon: <ExclamationTriangleIcon className="mt-[1px] h-4 w-4" />,
+    icon: <ExclamationTriangleIcon className="mt-[1px] h-4" />,
   },
 };
 
@@ -22,7 +22,7 @@ const FormMessage = ({ success = false, message }: MessageState) => {
   const { style, icon } = types[type];
 
   return (
-    <div className={`flex items-center gap-2 rounded-lg p-3 text-sm ${style}`}>
+    <div className={`form-message ${style}`}>
       {icon}
       <p>{message}</p>
     </div>

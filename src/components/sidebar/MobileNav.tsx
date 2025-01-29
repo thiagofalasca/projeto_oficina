@@ -9,8 +9,9 @@ import Footer from './Footer';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import AppLogo from '../AppLogo';
 import NavLinks from './NavLinks';
+import { adminLinks, userLinks } from '@/lib/constants';
 
-const MobileNav = () => {
+const MobileNav = async ({ user }: { user: loggedUser }) => {
   return (
     <section className="w-fulll max-w-[264px]">
       <Sheet>
@@ -22,11 +23,14 @@ const MobileNav = () => {
           <SheetClose asChild>
             <AppLogo type="mobile" />
           </SheetClose>
-          <div className="flex h-[calc(100vh-64px)] flex-col justify-between">
+          <div className="mobilenav">
             <nav className="flex h-full flex-col gap-6 pt-16">
-              <NavLinks type="mobile" />
+              <NavLinks
+                type="mobile"
+                links={user.role === 'user' ? userLinks : adminLinks}
+              />
             </nav>
-            <Footer type="mobile" />
+            <Footer type="mobile" user={user} />
           </div>
         </SheetContent>
       </Sheet>

@@ -2,15 +2,16 @@ import React from 'react';
 import NavLinks from './NavLinks';
 import AppLogo from '../AppLogo';
 import Footer from './Footer';
+import { adminLinks, userLinks } from '@/lib/constants';
 
-const SideNav = () => {
+const SideNav = async ({ user }: { user: loggedUser }) => {
   return (
-    <div className="flex h-screen flex-col justify-between border-r bg-gray-50 p-4 max-md:hidden xl:w-[350px]">
+    <div className="sidenav">
       <nav className="flex flex-col gap-4">
         <AppLogo type="desktop" />
-        <NavLinks />
+        <NavLinks links={user.role === 'user' ? userLinks : adminLinks} />
       </nav>
-      <Footer />
+      <Footer user={user} />
     </div>
   );
 };

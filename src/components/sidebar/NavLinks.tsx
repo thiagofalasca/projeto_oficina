@@ -2,32 +2,21 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { sidebarLinks } from '@/lib/constants';
+import { iconMap, type NavLink } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { SheetClose } from '../ui/sheet';
 
 interface NavLinksProps {
   type?: 'mobile' | 'desktop';
+  links: NavLink[];
 }
 
-interface SidebarLink {
-  route: string;
-  label: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-}
-
-interface NavLinkProps {
-  link: SidebarLink;
-  isActive: boolean;
-  isMobile?: boolean;
-}
-
-export default function NavLinks({ type = 'desktop' }: NavLinksProps) {
+export default function NavLinks({ type = 'desktop', links }: NavLinksProps) {
   const pathname = usePathname();
 
   return (
     <>
-      {sidebarLinks.map((link) => {
+      {links.map((link) => {
         const isActive =
           pathname === link.route || pathname.startsWith(`${link.route}/`);
         return (
@@ -43,19 +32,25 @@ export default function NavLinks({ type = 'desktop' }: NavLinksProps) {
   );
 }
 
-const NavLink = ({ link, isActive, isMobile = false }: NavLinkProps) => {
-  const LinkIcon = link.icon;
+interface NavLinkProps {
+  link: NavLink;
+  isActive: boolean;
+  isMobile?: boolean;
+}
 
-  const baseStyles = cn('flex items-center gap-3 rounded-lg', {
+const NavLink = ({ link, isActive, isMobile = false }: NavLinkProps) => {
+  const LinkIcon = iconMap[link.icon];
+
+  const baseStyles = cn('flex items-center rounded-md gap-3', {
     'bg-blue-100': isActive,
   });
 
   const textStyles = cn('font-semibold text-gray-700', {
-    '!text-blue-700': isActive,
+    '!text-blue-600': isActive,
   });
 
-  const iconStyles = cn('w-6 text-gray-700', {
-    '!text-blue-700': isActive,
+  const iconStyles = cn('w-6 h-6 text-gray-700', {
+    '!text-blue-600': isActive,
   });
 
   const linkProps = {

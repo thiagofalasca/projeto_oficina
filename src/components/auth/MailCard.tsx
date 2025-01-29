@@ -1,6 +1,6 @@
 import { Mail } from 'lucide-react';
 import React from 'react';
-import AuthHeader from './AuthHeader';
+import HeaderBox from '../HeaderBox';
 import AuthFooter from './AuthFooter';
 
 interface MailCardProps {
@@ -12,8 +12,8 @@ const MailCard = ({ type }: MailCardProps) => {
   return (
     <section className="auth-card max-w-3xl">
       <Mail className="auth-icon text-blue-600" />
-      <AuthHeader
-        titleSize="md"
+      <HeaderBox
+        className="text-3xl"
         title={isConfirmation ? 'Confirmação de Conta' : 'Alteração de Senha'}
       />
       <div className="text-center text-gray-700">

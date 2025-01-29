@@ -11,7 +11,7 @@ const FormButton: React.FC<FormButtonProps> = ({ isLoading, children }) => (
   <Button type="submit" disabled={isLoading} className="form-btn">
     {isLoading ? (
       <>
-        <Loader2 size={20} className="animate-spin" /> &nbsp; Carregando...
+        <Loader2 size={20} className="animate-spin" /> Carregando...
       </>
     ) : (
       <>
