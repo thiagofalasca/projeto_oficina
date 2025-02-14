@@ -14,18 +14,30 @@ import {
 } from '@/lib/validations/workshop';
 import { getStudentByUserId } from '../studentActions';
 
-export const handleEnrollment = async (
+const checkExistingEnrollment = async (
   workshopId: string,
   studentId: string
-): Promise<MessageState> => {
-  const existingEnrollment = await db
+) => {
+  const [enrollment] = await db
     .select()
     .from(workshopEnrollments)
     .where(
       sql`${workshopEnrollments.workshopId} = ${workshopId} AND 
-        ${workshopEnrollments.studentId} = ${studentId}`
+          ${workshopEnrollments.studentId} = ${studentId}`
     )
     .limit(1);
+
+  return enrollment;
+};
+
+const handleEnrollment = async (
+  workshopId: string,
+  studentId: string
+): Promise<MessageState> => {
+  const existingEnrollment = await checkExistingEnrollment(
+    workshopId,
+    studentId
+  );
 
   if (existingEnrollment) {
     return { success: false, message: 'Estudante já matriculado' };
