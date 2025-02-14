@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { courses, states, workshopStatus } from './constants';
 
+/* v8 ignore next 3 */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm';
 import { formatDateToISO } from '../utils';
 import { signUpInput } from '../validations/auth';
 
+/* v8 ignore next 21 */
 export const getUserByEmail = async (email: string): Promise<User | null> => {
   try {
     const user = await db.query.users.findFirst({

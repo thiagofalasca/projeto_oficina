@@ -1,13 +1,37 @@
 import { defineConfig } from 'vitest/config';
-import { defineConfig as viteDefineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import react from '@vitejs/plugin-react';
 
-export default defineConfig(
-  viteDefineConfig({
-    plugins: [tsconfigPaths()],
-    test: {
-      environment: 'jsdom',
+export default defineConfig({
+  plugins: [tsconfigPaths()],
+  test: {
+    alias: {
+      '@/auth': '__tests__/mocks/auth.ts',
+      'next-auth/providers/credentials':
+        '__tests__/mocks/next-auth-providers-credentials.ts',
+      'next-auth': '__tests__/mocks/next-auth.ts',
     },
-  })
-);
+    setupFiles: ['dotenv/config'],
+    coverage: {
+      exclude: [
+        'next.config.ts',
+        'postcss.config.mjs',
+        'tailwind.config.ts',
+        'vitest.config.mts',
+        'drizzle.config.ts',
+        '**/.next/**',
+        '**/__tests__/**',
+        './src/app/**',
+        './src/components/**',
+        '**/src/db/**',
+        '**/src/lib/validations/**',
+        './src/lib/constants.ts',
+        './src/lib/actions/studentActions.ts',
+        './src/types/**',
+        './src/auth.config.ts',
+        './src/auth.ts',
+        './src/middleware.ts',
+        './src/routes.ts',
+      ],
+    },
+  },
+});

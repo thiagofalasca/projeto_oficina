@@ -1,10 +1,10 @@
-'use server';
-
+import 'server-only';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '@/db';
 import { verificationTokens, PasswordResetTokens } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
+/* v8 ignore next 27 */
 export const getVerificationTokenByToken = async (
   token: string
 ): Promise<Token | null> => {
@@ -59,6 +59,7 @@ export const generateVerificationToken = async (
   }
 };
 
+/* v8 ignore next 27 */
 export const getPasswordResetTokenByToken = async (
   token: string
 ): Promise<Token | null> => {
@@ -98,9 +99,7 @@ export const generatePasswordResetToken = async (
     if (existingToken) {
       await db
         .delete(PasswordResetTokens)
-        .where(
-          eq(PasswordResetTokens.identifier, PasswordResetTokens.identifier)
-        );
+        .where(eq(PasswordResetTokens.identifier, existingToken.identifier));
     }
 
     const PasswordResetToken = await db
