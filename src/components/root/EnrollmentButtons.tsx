@@ -21,7 +21,11 @@ export const RemoveStudentButton = ({
   return (
     <ConfirmationDialog
       trigger={
-        <Button variant="outline" className="text-red-600 hover:text-red-700">
+        <Button
+          variant="outline"
+          className="text-red-600 hover:text-red-700"
+          data-testid="remove-student-button"
+        >
           <TrashIcon className="h-4 w-4" />
         </Button>
       }

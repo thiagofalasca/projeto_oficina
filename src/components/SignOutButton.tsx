@@ -11,6 +11,7 @@ interface SignOutButtonProps {
 export function SignOutButton({ type }: SignOutButtonProps) {
   return (
     <button
+      data-testid="sign-out-button"
       onClick={() => signOut()}
       className={cn('cursor-pointer', {
         'max-xl:mx-auto': type === 'desktop',
