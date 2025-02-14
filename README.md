@@ -55,7 +55,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 
 - **Backend**
 
-  - API construída com **Next.js API Routes** para lidar com a lógica de negócios e comunicação com o banco de dados.
+  - API construída com **Next.js Server Actions** para lidar com a lógica de negócios e comunicação com o banco de dados.
   - Utilização do **Drizzle ORM** para interagir com o banco de dados **NeonDB**.
 
 - **Banco de Dados**
@@ -81,7 +81,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 
 - **Testes End-to-End**
 
-  - Implementar testes com **Cypress** para simular o fluxo completo do usuário no sistema.
+  - Implementar testes com **Playwright** para simular o fluxo completo do usuário no sistema.
 
 - **Integração Contínua (CI)**
 
@@ -97,7 +97,7 @@ Desenvolver uma aplicação web que auxilie professores na gestão de alunos vol
 - **Drizzle ORM**: ORM para interagir com o banco de dados.
 - **NextAuth.js**: Biblioteca para autenticação e autorização.
 - **Vitest**: Framework de testes unitários.
-- **Cypress**: Ferramenta para testes end-to-end.
+- **Playwright**: Ferramenta para testes end-to-end.
 - **Vercel**: Plataforma de hospedagem e deploy contínuo.
 - **Ferramentas Adicionais**: ESLint, Prettier, Git e GitHub.
 
