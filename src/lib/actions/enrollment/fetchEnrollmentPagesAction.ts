@@ -4,10 +4,12 @@ import { db } from '@/db';
 import { students, users, workshopEnrollments } from '@/db/schema';
 import { ENROLLMENTS_PER_PAGE } from '@/lib/constants';
 import { eq, sql } from 'drizzle-orm';
+import { roleGuard } from '../auth/authActions';
 
 export const fetchEnrollmentPages = async (
   workshopId: string
 ): Promise<number> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
   try {
     const [result] = await db
       .select({ count: sql<number>`count(*)` })

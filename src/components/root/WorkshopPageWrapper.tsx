@@ -44,25 +44,17 @@ const WorkshopPageWrapper = async ({
   const toastMessage = (() => {
     if (resolvedSearchParams?.created === 'true')
       return 'Workshop criado com sucesso!';
-    if (resolvedSearchParams?.notAuthorized === 'true')
-      return 'Você não tem permissão para acessar essa página.';
     if (resolvedSearchParams?.updated === 'true')
       return 'Workshop atualizado com sucesso!';
     if (resolvedSearchParams?.deleted === 'true')
       return 'Workshop deletado com sucesso!';
     return '';
   })();
-  const toastType =
-    resolvedSearchParams?.notAuthorized === 'true' ? 'error' : 'success';
 
   return (
     <section className="flex flex-col gap-4 md:gap-8">
       {toastMessage && (
-        <ToastMessage
-          type={toastType}
-          message={toastMessage}
-          show={!!toastMessage}
-        />
+        <ToastMessage message={toastMessage} show={!!toastMessage} />
       )}
       <HeaderBox
         title={title}

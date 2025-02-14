@@ -11,7 +11,6 @@ interface WorkshopSearchParams {
   query?: string;
   page?: string;
   created?: string;
-  notAuthorized?: string;
   updated?: string;
   deleted?: string;
 }

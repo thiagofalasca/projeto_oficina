@@ -37,6 +37,8 @@ export const removeEnrollment = async (
 };
 
 export const cancelEnrollment = async (workshopId: string): Promise<void> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
+
   const user = await getCurrentUser();
   if (!user) redirect('/api/auth/sign-out');
 

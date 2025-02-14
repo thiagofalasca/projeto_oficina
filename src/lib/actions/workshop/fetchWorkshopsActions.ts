@@ -10,6 +10,7 @@ import {
 } from '@/db/schema';
 import { WORKSHOPS_PER_PAGE, workshopStatus } from '@/lib/constants';
 import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
+import { roleGuard } from '../auth/authActions';
 
 const getBaseQuery = () => {
   return db
@@ -58,6 +59,7 @@ export const fetchWorkshops = async (
   page: number,
   user: loggedUser
 ): Promise<Workshop[]> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
   const offset = (page - 1) * WORKSHOPS_PER_PAGE;
 
   try {
@@ -98,6 +100,7 @@ export const fetchAvailableWorkshops = async (
   page: number,
   userId: string
 ): Promise<Workshop[]> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
   const offset = (page - 1) * WORKSHOPS_PER_PAGE;
 
   try {
@@ -129,6 +132,7 @@ export const fetchAvailableWorkshops = async (
 };
 
 export const fetchWorkshopById = async (id: string): Promise<Workshop> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
   try {
     const baseQuery = getBaseQuery();
 

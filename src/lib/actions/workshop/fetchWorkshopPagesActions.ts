@@ -10,6 +10,7 @@ import {
 } from '@/db/schema';
 import { and, eq, ilike, or, sql } from 'drizzle-orm';
 import { WORKSHOPS_PER_PAGE, workshopStatus } from '../../constants';
+import { roleGuard } from '../auth/authActions';
 
 const getCountQuery = () => {
   return db
@@ -25,6 +26,7 @@ export const fetchWorkshopsPages = async (
   query: string,
   user: loggedUser
 ): Promise<number> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
   try {
     const baseQuery = getCountQuery();
 
@@ -66,6 +68,7 @@ export const fetchAvailableWorkshopsPages = async (
   query: string,
   userId: string
 ): Promise<number> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
   try {
     const [result] = await getCountQuery().where(
       and(

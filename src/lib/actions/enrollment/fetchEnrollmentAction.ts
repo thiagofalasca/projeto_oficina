@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { students, users, workshopEnrollments } from '@/db/schema';
 import { ENROLLMENTS_PER_PAGE, enrollmentStatus } from '@/lib/constants';
 import { eq, sql } from 'drizzle-orm';
+import { roleGuard } from '../auth/authActions';
 
 const getEnrollmentsOrder = () => {
   return [
@@ -22,6 +23,7 @@ export const fetchEnrollments = async (
   workshopId: string,
   page: number
 ): Promise<Enrollment[]> => {
+  await roleGuard(['user', 'admin', 'superadmin']);
   const offset = (page - 1) * ENROLLMENTS_PER_PAGE;
 
   try {
